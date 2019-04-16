@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".GameInfoActivity" />
+        <activity android:name=".InveStartActivity" />
+        <activity android:name=".InveSetActivity"></activity>
     </application>
 
 </manifest>

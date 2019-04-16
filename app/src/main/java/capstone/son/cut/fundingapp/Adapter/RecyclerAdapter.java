@@ -1,8 +1,10 @@
 package capstone.son.cut.fundingapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +18,18 @@ import com.bumptech.glide.Glide;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import capstone.son.cut.fundingapp.GameInfoActivity;
 import capstone.son.cut.fundingapp.ListVO;
+import capstone.son.cut.fundingapp.MainActivity;
 import capstone.son.cut.fundingapp.R;
+import capstone.son.cut.fundingapp.TempGameVO;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private ArrayList<ListVO> listVOS;
     private int itemlayout;
     private Context context;
-    private int position;
+    private long position;
+    private GameInfoActivity gi;
     public RecyclerAdapter(ArrayList<ListVO> listVOS, int itemlayout, Context context){
         this.listVOS=listVOS;
         this.itemlayout=itemlayout;
@@ -37,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        ListVO listVO=listVOS.get(i);
+        final ListVO listVO=listVOS.get(i);
         Glide.with(context)
                 .load(listVO.getImage())
                 .into(viewHolder.image);
@@ -46,10 +52,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             viewHolder.linearLayout.getLayoutParams().height=500;
             viewHolder.linearLayout.requestLayout();
         }
+        final int position=i;
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, GameInfoActivity.class);
+                ListVO vo=listVOS.get(position);
+                TempGameVO.setVO(vo);
+                context.startActivity(intent);
+
+            }
+        });
 
 
     }
 
+    public long getPosition() {
+        return position;
+    }
 
     @Override
     public int getItemCount() {
@@ -57,7 +77,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder  {
         public ImageView image;
         public TextView title;
         public LinearLayout linearLayout;
