@@ -33,16 +33,23 @@ public class Login_API2 extends AppCompatActivity {
         setContentView(R.layout.activity_login__api2);
         // 위젯에 대한 참조.
         tv_outPut = (TextView) findViewById(R.id.tv_outPut);
+
         findViewById(R.id.nextBtn).setOnClickListener(goMain);
+        //URL 설정
+        String url = "http://cybertec.jejunu.ac.kr";
+
+        NetWorkTask netWorkTask = new NetWorkTask(url, null);
+        netWorkTask.execute();
 
         Intent prevIntent = getIntent();
         final HashMap<String, String> extra = (HashMap<String, String>) prevIntent.getSerializableExtra("data");
 
-        DownLoadTask downLoadTask = new DownLoadTask();
+//        DownLoadTask downLoadTask = new DownLoadTask();
+//
+//        Integer[ ] arr = new Integer[3];
+//        downLoadTask.execute(arr);
+//        downLoadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, arr);
 
-        Integer[ ] arr = new Integer[3];
-        downLoadTask.execute(arr);
-        downLoadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, arr);
 //        try {
 //            new HttpConnectionThread().execute(extra).get();
 //        } catch (ExecutionException e) {
@@ -88,35 +95,60 @@ public class Login_API2 extends AppCompatActivity {
         }
     };
 
-    private class DownLoadTask extends AsyncTask<Integer, Integer, String>{
+//    private class DownLoadTask extends AsyncTask<Integer, Integer, String>{
+//
+//        private String s;
+//
+//        @Override //작업 실행전 메인쓰레드에서 호출(진행률 표지줄을 표시하는데 씀)
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected String doInBackground(Integer... integers) {
+//            return null;
+//        }
+//        @Override
+//        protected void onPostExecute(String result){
+//            super.onPostExecute(s);
+//        }
+//
+//        @Override
+//        protected  void onCancelled(String result){
+//            super.onCancelled(result);
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(Integer ... values){
+//            super.onProgressUpdate();
+//        }
+//
+//
+//    }
 
-        private String s;
+     public class NetWorkTask extends AsyncTask<Void, Void, String> {
+         private String url;
+         private ContentValues values;
 
-        @Override //작업 실행전 메인쓰레드에서 호출(진행률 표지줄을 표시하는데 씀)
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+        public NetWorkTask(String url, ContentValues values) {
+             this.url = url;
+             this.values = values;
+         }
+         @Override
+         protected String doInBackground(Void... params) {
+             String result;
+             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+             result = requestHttpURLConnection.request(url, values);
 
-        @Override
-        protected String doInBackground(Integer... integers) {
-            return null;
-        }
-        @Override
-        protected void onPostExecute(String result){
+             return result;
+         }
+
+         @Override
+         protected void onPostExecute(String s){
             super.onPostExecute(s);
-        }
 
-        @Override
-        protected  void onCancelled(String result){
-            super.onCancelled(result);
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer ... values){
-            super.onProgressUpdate();
-        }
-
-
+            tv_outPut.setText(s);
+         }
     }
 }
 

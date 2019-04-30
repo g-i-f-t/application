@@ -10,11 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".toDo"
-            android:label="@string/title_activity_to_do"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_config">
         <activity android:name=".MainActivity" />
         <activity android:name=".Login_API2" />
         <activity android:name=".Login_API" />

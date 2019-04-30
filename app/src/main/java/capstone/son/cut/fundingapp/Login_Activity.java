@@ -68,10 +68,7 @@ public class Login_Activity extends AppCompatActivity {
             alert.setMessage("비밀번호를 입력해주십시오.");
             alert.show();
         }
-
-
     }
-
     private AlertDialog.Builder showAlert() {
         AlertDialog.Builder alert = new AlertDialog.Builder(Login_Activity.this);
         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -82,6 +79,5 @@ public class Login_Activity extends AppCompatActivity {
         });
         return alert;
     }
-
 
 }
