@@ -45,7 +45,6 @@ public class RequestHttpURLConnection {
                         isAnd = true;
             }
         }
-
         /**
          * 2. HttpURLConnection을 통해 web의 데이터를 가져온다.
          * */

@@ -1,22 +1,18 @@
 package capstone.son.cut.fundingapp;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.ActionBar;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.content.ContentValues;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 

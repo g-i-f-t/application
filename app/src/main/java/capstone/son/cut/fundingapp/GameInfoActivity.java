@@ -1,16 +1,15 @@
 package capstone.son.cut.fundingapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ import java.util.ArrayList;
 
 import capstone.son.cut.fundingapp.Adapter.CircleAnimIndicator;
 import capstone.son.cut.fundingapp.Adapter.Game_info_RecyclerAdapter;
-import capstone.son.cut.fundingapp.Adapter.PagerAdapter;
 
 public class GameInfoActivity extends AppCompatActivity {
     private ArrayList<ListVO> vos;
@@ -162,7 +160,7 @@ public class GameInfoActivity extends AppCompatActivity {
         }
     };
 }
-class ViewPageAdapter extends android.support.v4.view.PagerAdapter {
+class ViewPageAdapter extends PagerAdapter {
 
     LayoutInflater inflater;
     ArrayList<Integer> imageList;

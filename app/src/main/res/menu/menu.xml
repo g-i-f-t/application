@@ -9,6 +9,6 @@
         android:actionLayout="@layout/search"
         android:title="탭하여 검색하기"
         app:showAsAction="always"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
 </menu>

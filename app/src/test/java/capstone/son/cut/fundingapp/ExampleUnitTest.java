@@ -1,5 +1,7 @@
 package capstone.son.cut.fundingapp;
 
+import android.os.strictmode.InstanceCountViolation;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -14,4 +16,5 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+    
 }
