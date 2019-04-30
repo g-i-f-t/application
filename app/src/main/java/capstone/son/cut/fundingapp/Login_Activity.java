@@ -52,7 +52,7 @@ public class Login_Activity extends AppCompatActivity {
                 extra.put("id",id);
                 extra.put("password",  password);
 
-                Intent intent=new Intent(Login_Activity.this,Login_API.class);
+                Intent intent=new Intent(Login_Activity.this,Login_API2.class);
                 intent.putExtra("data", extra);
                 startActivity(intent);
             }

@@ -13,19 +13,27 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
+
 @Dao
 public interface RoomUserDao {
-    @Query("select * from roomuser")
+//    @Query("select * from roomuser")
+//    List<RoomUser> getAll();
+    //primary key가 중복되는 경우 덮어씌움
+    @Query("SELECT * FROM roomuser")
     List<RoomUser> getAll();
-
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long add(RoomUser u1);
 
     @Delete
     void delete(RoomUser roomUser);
 
-    @Delete
+    @Update
     void update(RoomUser roomUser);
+
+    //동기
+    @Query("SELECT * FROM ROOMUSER WHERE id=:id")
+    RoomUser get(long id);
 
 
 //    @Query("select * from roomuser where user_id in (user_id)")

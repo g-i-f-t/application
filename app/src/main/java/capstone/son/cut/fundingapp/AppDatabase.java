@@ -11,17 +11,17 @@ import androidx.room.RoomDatabase;
 //TODO User에서 entity 스키마를  해당 데이터베이스에 구축
 @Database(entities = {RoomUser.class}, version =1)
 public abstract class AppDatabase extends RoomDatabase {
-   public abstract RoomUserDao roomUserDao();
+    public abstract RoomUserDao roomUserDao();
 
-   private static AppDatabase instance;
-   private static final Object info = new Object();
+    private static AppDatabase instance;
+    private static final Object info = new Object();
 
-   public static AppDatabase getInstance(Context context){
-       synchronized (info){
-           if(instance == null){
-               instance = Room.databaseBuilder(context.getApplicationContext(),AppDatabase.class, "Users.db").build();
-           }
-           return instance;
-       }
-   }
+    public static AppDatabase getInstance(Context context){
+        synchronized (info){
+            if(instance == null){
+                instance = Room.databaseBuilder(context.getApplicationContext(),AppDatabase.class, "Users.db").build();
+            }
+            return instance;
+        }
+    }
 }
