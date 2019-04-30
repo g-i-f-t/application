@@ -92,8 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentTransaction.commit();
             linearLayout.setOnClickListener(this);
             l.setOnClickListener(this);
-
-
+            
         }else{
             getSupportActionBar().setCustomView(R.layout.search);
             getSupportActionBar().show();

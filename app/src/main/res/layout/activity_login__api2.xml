@@ -89,6 +89,12 @@
             tools:layout_editor_absoluteX="167dp"
             tools:layout_editor_absoluteY="322dp" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextBtn"
+            android:text="시작하기" />
+
     </LinearLayout>
 
     <TextView

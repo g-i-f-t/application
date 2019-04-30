@@ -7,14 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class Login_API2 extends AppCompatActivity {
     private TextView tv_outPut;
@@ -25,8 +32,17 @@ public class Login_API2 extends AppCompatActivity {
         setContentView(R.layout.activity_login__api2);
         // 위젯에 대한 참조.
          tv_outPut = (TextView) findViewById(R.id.tv_outPut);
+       findViewById(R.id.nextBtn).setOnClickListener(goMain);
 
-         new HttpConnectionThread();
+        Intent prevIntent = getIntent();
+        final HashMap<String, String> extra = (HashMap<String, String>) prevIntent.getSerializableExtra("data");
+        try {
+            new HttpConnectionThread().execute(extra).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // URL 설정.
        // String url = "http://192.168.0.20:8080";
@@ -35,49 +51,79 @@ public class Login_API2 extends AppCompatActivity {
 //        NetworkTask networkTask = new NetworkTask(url, null);
 //        networkTask.execute();
 
-        Intent prevIntent = getIntent();
-        final HashMap<String, String> extra = (HashMap<String, String>) prevIntent.getSerializableExtra("data");
-        TextView code = findViewById(R.id.code);
+        TextView authCode = findViewById(R.id.code);
         TextView scope = findViewById(R.id.scope);
         TextView clientInfo = findViewById(R.id.client_info);
         TextView id = findViewById(R.id.id);
         TextView password = findViewById(R.id.password);
         TextView name = findViewById(R.id.name);
-        TextView birth = findViewById(R.id.birth);
+        TextView birthgender = findViewById(R.id.birth);
         TextView sex = findViewById(R.id.sex);
         TextView email = findViewById(R.id.email);
 
-        code.setText(extra.get("code"));
+        authCode.setText(extra.get("code"));
         scope.setText(extra.get("scope"));
         clientInfo.setText(extra.get("client_info"));
         id.setText(extra.get("id"));
         password.setText(extra.get("password"));
         name.setText(extra.get("name"));
-        birth.setText(extra.get("birth"));
+        birthgender.setText(extra.get("birthgender"));
         sex.setText(extra.get("sex"));
         email.setText(extra.get("email"));
 
     }
 
-    public class HttpConnectionThread  extends AsyncTask<String ,Void ,String>{
+    Button.OnClickListener goMain = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent=new Intent(Login_API2.this,MainActivity.class);
+            startActivity(intent);
+        }
+    };
+
+    public class HttpConnectionThread  extends AsyncTask<Object ,String ,String>{
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(Object... strings) {
+            Log.i("test", "시작");
+            HashMap<String , String> extra = (HashMap<String, String>) strings[0];
+            JSONObject BODY = new JSONObject(extra);
+
             URL url;
             String response = null;
             try {
-                url = new URL("http://192.168.0.20:8080");
+                url = new URL("http://117.17.102.139:8080/addAccount");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(10000 /* milliseconds */);
                 conn.setConnectTimeout(15000 /* milliseconds */);
+
                 conn.setRequestMethod("POST");
+                conn.setRequestProperty("Accept-Charset", "UTF-8"); // Accept-Charset ����. //character set을 utf-8로 선언
+                conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoInput(true);
+                conn.setDoOutput(true);
                 conn.connect();
                 response = conn.getResponseMessage();
                 Log.d("RESPONSE", "The response is: " + response);
 
+                OutputStream OutStream = conn.getOutputStream();
+                OutStream.write(BODY.toString().getBytes("utf-8"));//Body는 서버로보낼 스트링값등을 설정하는 것
+
                 int resCode = conn.getResponseCode(); // connect, send http reuqest, receive htttp request
                 System.out.println ("code = "+ resCode);
+
+                InputStreamReader InputStream = new InputStreamReader(conn.getInputStream(), "UTF-8");//InputStreamReader는 서버로부터 안드로이드로 받아오는 데이터 흐름을 읽어주는 클래스
+                BufferedReader Reader = new BufferedReader(InputStream);
+                StringBuilder Builder = new StringBuilder();//스트링을 만들어주는데 유용하게쓰이는 클래스
+                String ResultStr; //저장할 공간
+
+                while ((ResultStr = Reader.readLine()) != null) {//(중요)서버로부터 한줄씩 읽어서 문자가 없을때까지 넣어줌
+                    System.out.println(ResultStr);
+                    Builder.append(ResultStr + "\n"); //읽어준 스트링값을 더해준다.
+                }
+
+                Log.i("gg", Builder.toString());
+                response = Builder.toString();
             }
             catch (IOException e) {
             }

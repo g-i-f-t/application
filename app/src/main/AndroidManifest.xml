@@ -11,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login_API2"></activity>
+        <activity
+            android:name=".toDo"
+            android:label="@string/title_activity_to_do"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login_API2" />
         <activity android:name=".Login_API" />
         <activity android:name=".Login_Activity">
             <intent-filter>

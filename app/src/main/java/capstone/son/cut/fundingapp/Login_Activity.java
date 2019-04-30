@@ -14,7 +14,7 @@ import java.util.Map;
 public class Login_Activity extends AppCompatActivity {
 
     EditText et_id, et_pw, et_pw_chk, et_name, et_birth, et_sex, et_email ;
-    String Id, Pw, Pw_chk,name, birth, sex, email;
+    String id, password, password_chk,name, birthgender, sex, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +34,26 @@ public class Login_Activity extends AppCompatActivity {
     public void bt_Join(View view) {
         /* 버튼을 눌렀을 때 동작하는 소스 */
         name = et_name.getText().toString();
-        birth = et_birth.getText().toString();
+        birthgender = et_birth.getText().toString();
         sex = et_sex.getText().toString();
         email = et_email.getText().toString();
 
-        Id = et_id.getText().toString();
-        Pw = et_pw.getText().toString();
-        Pw_chk = et_pw_chk.getText().toString();
+        id = et_id.getText().toString();
+        password = et_pw.getText().toString();
+        password_chk = et_pw_chk.getText().toString();
 
-        if(Pw.equals(Pw_chk))
+        if(password.equals(password_chk))
         {
             /* 패스워드 확인이 정상적으로 됨 */
             HashMap<String, String> extra = new HashMap<>();
             extra.put("name", name);
-            extra.put("birth", birth);
+            extra.put("birth",  birthgender);
             extra.put("sex", sex);
             extra.put("email",email);
-            extra.put("id",Id);
-            extra.put("password", Pw);
+            extra.put("id",id);
+            extra.put("password",  password);
 
-            Intent intent=new Intent(Login_Activity.this,Login_API2.class);
+            Intent intent=new Intent(Login_Activity.this,Login_API.class);
             intent.putExtra("data", extra);
             startActivity(intent);
 

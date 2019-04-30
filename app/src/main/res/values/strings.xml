@@ -9,4 +9,5 @@
     <string name="forget_password">forget_password</string>
     <string name="login">login</string>
     <string name="skip">skip</string>
+    <string name="title_activity_to_do">toDo</string>
 </resources>
